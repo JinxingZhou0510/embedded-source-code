@@ -1,0 +1,176 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+E:\CPFwork\Project2\步进电机\stepmotor-both201401130 - 副本\RT-Thread_1.2.0\bsp\stm32f10x\project.uvproj
+Project File Date:  11/29/2014
+
+<h2>Output:</h2>
+Build target 'RT-Thread STM32'
+compiling MotorStart.c...
+linking...
+Program Size: Code=87326 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Build target 'RT-Thread STM32'
+linking...
+Program Size: Code=87326 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Build target 'RT-Thread STM32'
+linking...
+Program Size: Code=87326 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\CPFwork\\Project2\\步进电机\\stepmotor-both201401130 - 副本\\RT-Thread_1.2.0\\bsp\\stm32f10x\\build\\rtthread-stm32.axf" 
+Set JLink Project File to "E:\CPFwork\Project2\步进电机\stepmotor-both201401130 - 副本\RT-Thread_1.2.0\bsp\stm32f10x\JLinkSettings.ini"
+* JLink Info: Device "STM32F103VB" selected (128 KB flash, 20 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.68a, compiled Apr 12 2013 13:26:50
+Firmware: J-Link ARM V8 compiled Nov 14 2012 22:34:52
+Hardware: V8.00
+S/N : 99991999 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
+ 
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ 
+Target info:
+------------
+Device: STM32F103VB
+VTarget = 3.254V
+State of Pins: 
+TCK: 1, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'RT-Thread STM32'
+compiling MotorStart.c...
+linking...
+Program Size: Code=87078 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Build target 'RT-Thread STM32'
+linking...
+Program Size: Code=87078 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\CPFwork\\Project2\\步进电机\\stepmotor-both201401130 - 副本\\RT-Thread_1.2.0\\bsp\\stm32f10x\\build\\rtthread-stm32.axf" 
+Set JLink Project File to "E:\CPFwork\Project2\步进电机\stepmotor-both201401130 - 副本\RT-Thread_1.2.0\bsp\stm32f10x\JLinkSettings.ini"
+* JLink Info: Device "STM32F103VB" selected (128 KB flash, 20 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.68a, compiled Apr 12 2013 13:26:50
+Firmware: J-Link ARM V8 compiled Nov 14 2012 22:34:52
+Hardware: V8.00
+S/N : 99991999 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
+ 
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ 
+Target info:
+------------
+Device: STM32F103VB
+VTarget = 3.254V
+State of Pins: 
+TCK: 1, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Build target 'RT-Thread STM32'
+compiling MotorStart.c...
+linking...
+Program Size: Code=87326 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Build target 'RT-Thread STM32'
+linking...
+Program Size: Code=87326 RO-data=4318 RW-data=508 ZI-data=15532  
+FromELF: creating hex file...
+After Build - User command #1: fromelf --bin .\build\rtthread-stm32.axf --output rtthread.bin
+".\build\rtthread-stm32.axf" - 0 Errors, 0 Warning(s).
+Load "E:\\CPFwork\\Project2\\步进电机\\stepmotor-both201401130 - 副本\\RT-Thread_1.2.0\\bsp\\stm32f10x\\build\\rtthread-stm32.axf" 
+Set JLink Project File to "E:\CPFwork\Project2\步进电机\stepmotor-both201401130 - 副本\RT-Thread_1.2.0\bsp\stm32f10x\JLinkSettings.ini"
+* JLink Info: Device "STM32F103VB" selected (128 KB flash, 20 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.68a, compiled Apr 12 2013 13:26:50
+Firmware: J-Link ARM V8 compiled Nov 14 2012 22:34:52
+Hardware: V8.00
+S/N : 99991999 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
+ 
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: TotalIRLen = 9, IRPrint = 0x0011
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+ 
+Target info:
+------------
+Device: STM32F103VB
+VTarget = 3.241V
+State of Pins: 
+TCK: 1, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+* JLink Info: TPIU fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+Application running ...
+Clean started: Project: 'project'
+   deleting intermediate output files for target 'RT-Thread STM32'

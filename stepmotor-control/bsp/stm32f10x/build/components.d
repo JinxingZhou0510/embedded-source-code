@@ -1,0 +1,15 @@
+.\build\components.o: ..\..\components\init\components.c
+.\build\components.o: ..\..\components\init\components.h
+.\build\components.o: ..\..\include\rtthread.h
+.\build\components.o: ..\..\include\rtdef.h
+.\build\components.o: applications\rtconfig.h
+.\build\components.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\build\components.o: ..\..\include\rtdebug.h
+.\build\components.o: ..\..\include\rtservice.h
+.\build\components.o: ..\..\include\rtm.h
+.\build\components.o: ..\..\include\rtthread.h
+.\build\components.o: ..\..\components\finsh\finsh.h
+.\build\components.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+.\build\components.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\build\components.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\components.o: ..\..\components\finsh\shell.h

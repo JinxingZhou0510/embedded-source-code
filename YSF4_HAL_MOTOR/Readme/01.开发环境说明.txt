@@ -1,0 +1,279 @@
+/*
+ *********************************************************************************************************
+ *
+ *                           硬石YS-F4Pro开发板开发环境说明
+ *
+ * 
+ *********************************************************************************************************
+ */
+
+【1】CPU内部资源
+	CPU型号        : STM32F407IGT6 / LQFP-176 / ARM 32-bit Cortex-M4
+	主频           : 168MHz
+	内部Flash容量  : 1MB
+	内部SRAM容量   : 128KB SRAM+64KB CCM  = 192RAM
+	定时器         : 17个
+	UART           : 6个
+	SPI            : 3个 (2个可复用为I2S)
+	I2C            : 3个
+	ADC            : 3个独立的12位ADC
+	DAC            : 2路独立12位DAC
+	CAN            : 2个 CAN 2.0B
+	SDIO           : 1个
+	USB            : USB2.0全速（集成内部PHY） 从设备/主设备/OTG功能
+                   USB2.0高速/全速 从设备/主设备/OTG功能
+  GPIO           : 140个
+  ETH            : 10/100M以太网
+  
+【2】FSMC存储器地址分配
+  CPU内部 FLASH         【0x0800 0000 - 0x080F FFFF】,容量1M(0x100000)字节
+	CPU内部 SRAM1         【0x2000 0000 - 0x2001 FFFF】,容量128K(0x20000)字节
+	CPU内部 CCM data RAM  【0x1000 0000 - 0x1000 FFFF】,容量64K(0x10000)字节
+  
+	TFT LCD地址    【0x6C00 0000,  0x6C00 0002】, 仅占用1个端口地址
+
+【3】开发工具
+    【仿真器】 --- 非标配，单独选购
+	虽然STM32支持串口ISP下载程序，但是不支持在线调试。使用串口下载，开发效率极低，因此强烈推荐购买一个仿真
+	器，提高开发效率。
+	- ST-LINK V2 仿真器: ST公司开发的仿真器，可以下载程序和调试跟踪程序。支持STM8和STM32。
+	- J-LINK V8,V9仿真器 : Segger公司开发的仿真器，可以下载程序和调试跟踪程序。支持所有ARM系列。
+    - CMSIS-DAP仿真器：ARM开源仿真器，可以下载程序和调试跟踪程序。支持所有ARM-M系列。
+    【Mini USB线】--- 开发板配送
+	- 开发板预留一个Mini USB接口，一个通过CH340G芯片通过跳线帽选择接在stm32芯片USART1接口上，可用于大部分
+  程序打印调试信息。
+
+    【开发软件】
+	- 编译环境 KEIL 的 MDK uVision5.17
+             IAR  的 ARM工具 v7.50.2  
+
+【5】编译和调试方法
+
+	【Keil MDK】V5.17
+		- 执行菜单 Project -> Open project                                打开 \MDK-ARM\YS-F4Pro.uvprojx （这是工程文件）
+ 		- 执行菜单 Project -> Rebuild all target files                    重新编译所有的文件:
+ 		- 执行菜单 Flash -> Download (F8)                                 下载程序到开发板运行
+	【IAR】V7.50.2
+		- 执行菜单 File -> Open -> Workspace                               打开 \EWARM\Project.eww （这是工程工作平台文件）
+ 		- 执行菜单 Project -> Rebuild all                                  重新编译所有的文件:
+ 		- 执行菜单 Project -> Download and Debug(Ctrl+D)                   装载程序并启动调试
+【6】例程文件夹说明
+├─Drivers :   存放第3方提供的库或其源代码，这些代码一般是成熟的并经过验证的代码。
+│  ├─CMSIS :  CMSIS是ARM公司与多家不同的芯片和软件供应商一起紧密合作定义的，提供了内核与外设、实时操作系统和中间设备之间的通用接口。
+│  └─STM32F4xx_HAL_Driver : STM32F4xx系列MCU的硬件抽象层(HAL)库源代码
+│
+├─EWARM    :  IAR编译器工程文件夹
+│
+├─Inc      :  这里存放用户任务程序相关头文件
+│  └─bsp  :  外设模块底层驱动头文件
+│
+├─MDK-ARM  :  Keil编译器工程文件夹
+│
+├─Readme   :  工程相关说明
+│
+└─Src      :  这里存放用户任务程序C语音源文件
+    └─bsp  :  外设模块底层驱动源文件
+
+【7】工程中源代码分组说明
+IAR编译环境
+└─YS-F4PRO                        : 工程名称
+   ├─Application                  : 应用程序
+   │    ├─EWARM                   : 启动文件(汇编源程序)
+   │    └─User                    : 存放 main.c 以及用户用用程序
+   │
+   ├─bsp                          : 板级支持包，存放模块底层驱动函数 
+   │
+   ├─Drivers                      : 驱动程序
+   │    ├─CMSIS                   : 仅存放CMSIS接口文件 system_stm32f4xx.c)
+   │    └─STM32F4xx_HAL_Driver    : 存放STM32F4xx系列MCU的HAL库源代码
+   │
+   ├─Readme                       : 工程说明文档，仅限txt文件
+   └─Output                       : 工程编译输出文件
+   
+Keil编译环境
+└─YS-F1PRO                        : Target名称
+   ├─Application/MDK-ARM          : 启动文件(汇编源程序)
+   ├─Application/User             : 存放 main.c 以及用户用用程序
+   ├─Drivers/STM32F1xx_HAL_Driver : 存放STM32F1xx系列MCU的HAL库源代码
+   ├─Drivers/CMSIS                : 仅存放CMSISI接口文件 system_stm32f1xx.c   
+   ├─bsp                          : 板级支持包，存放模块底层驱动函数  
+   └─Readme                       : 工程说明文档，仅限txt文件
+
+【8】公共源代码文件说明
+	- main.c          : 用户主程序，存放main()函数的文件
+	- stm32f4xx_it.c  : 集中存放中断服务程序
+
+【9】C编译器中的预定义宏 （在工程设置中更改）
+	USE_HAL_DRIVER        - 增加这个符号表示使用ST公司的HAL库外设驱动
+	VECT_TAB_SRAM         - 增加这个符号表示中断向量表定位在CPU内部RAM （针对在CPU内部RAM运行的工程才需要添加，一般都不用）
+	STM32F407xx           - 增加这个符号表示使用STM32F407xx系列芯片
+
+【10】调整堆和栈的容量
+	对于IAR EWARM, 直接在工程设置中进行修改即可
+		- 菜单 project -> options -> 选择Linker -> Config页 -> 点Edit按钮 -> 切换到Stack/Heap Size
+		比如：
+			CSTACK = 0x1000
+			HEAP   = 0x400		
+		
+	对于KEIL MDK, 设置堆和栈的大小是通过修改启动文件start_stm32f407xx.s 文件实现的，比如：
+		Stack_Size      EQU     0x00001000
+		Heap_Size       EQU     0x00000200
+
+【11】输出目标文件
+    对于IAR EWARM:
+	\EWARM\YS-F4Pro\Exe\YS-F4PRO.hex  - 采用IAR EWARM编译好的文件	
+    
+    对于KEIL MDK:
+	\MDK-ARM\YS-F4Pro\YS-F4PRO.hex  - 采用KEIL MDK编译好的文件，定位在CPU 内部Flash	
+	\MDK-ARM\YS-F4Pro\YS-F4PRO.map  - 这是编译链接文件，文本格式，可以查看每个函数、变量的地址和空间分配情况。
+
+【附录1】 YS-F4Pro开发板 GPIO分配表
+  按GPIO次序排列, 一共140个GPIO。GPIOA – GPIOH 每组16根，GPIOI  有12根。
+    PA0/ADC123_IN0                              ADC转换通道,foc控制
+    PA1/RMII_REFCLK                             RMII接口
+    PA2/ETH_MDIO                                以太网配置接口数据IO
+    PA3/ADC123_IN3                              ADC转换通道,foc控制
+    PA4/ADC12_IN4                               ADC转换通道,foc控制
+    PA5/SPI1_SCK						                    SPI1总线时钟
+    PA6/ADC12_IN6                               ADC转换通道,foc控制
+    PA7/RMII_CRS_DV                             RMII接口
+    PA8/TIM1_CH1                                定时器功能引脚，电机控制
+    PA9/TIM1_CH2                                定时器功能引脚，电机控制
+    PA10/TIM1_CH3                               定时器功能引脚，电机控制
+    PA11/OTG_FS_DM                              全速USB接口数据线D-
+    PA12/OTG_FS_DP                              全速USB接口数据线D+
+    PA13/SWDIO                                  SWD调试接口数据线
+    PA14/SWCLK                                  SWD调试接口时钟线
+    PA15/TIM2_CH1                               定时器功能引脚，编码器接口
+
+    PB0/ADC12_IN8                               ADC转换通道,foc控制
+    PB1/ADC12_IN9                               ADC转换通道,foc控制
+    PB2-BOOT1/BLN_EN                            BOOT1/蓝牙模块使能
+    PB3/TIM2_CH2                                定时器功能引脚，编码器接口
+    PB4/SPI1_MISO                               SPI1数据线
+    PB5/SPI1_MOSI                               SPI1数据线
+    PB6/USART1_TXD                              串口1发送，默认使用CH340G串口转USB芯片做调试串口
+    PB7/USART1_RXD                              串口1接收，默认使用CH340G串口转USB芯片做调试串口
+    PB8/TIM4_CH3                                定时器功能引脚，霍尔传感器接口
+    PB9/CAN1_TX                                 CAN发送
+    PB10/USART3_TXD                             串口3发送，默认接RS232芯片，可接RS485收发芯片
+    PB11/USART3_RXD                             串口3接收，默认接RS232芯片，可接RS485收发芯片
+    PB12/TIM1_BKIN                              定时器功能引脚，电机控制
+    PB13/TIM1_CH1N                              定时器功能引脚，电机控制
+    PB14/TIM1_CH2N                              定时器功能引脚，电机控制
+    PB15/TIM1_CH3N                              定时器功能引脚，电机控制
+
+    PC0/ADC123_IN10                             ADC转换通道,foc控制
+    PC1/ETH_MDC                                 以太网接口
+    PC2/SPI2_MISO                               SPI接口，串行Flash读写
+    PC3/ADC123_IN13                             ADC转换通道,foc控制
+    PC4/RMII_RXD0                               RMII接口
+    PC5/RMII_RXD1                               RMII接口
+    PC6/TIM3_CH1                                定时器功能引脚，编码器接口
+    PC7/TIM3_CH2                                定时器功能引脚，编码器接口
+    PC8/SPI_NSS_1                               SPI接口
+    PC9/LCD_BL                                  液晶背光
+    PC10/USART4_TXD                             串口4发送，蓝牙模块、GSM模块、GPS模块
+    PC11/USART4_RXD                             串口4接收，蓝牙模块、GSM模块、GPS模块
+    PC12/RS485_DE                               RS-485芯片使能
+    PC13/STEPM4_DIR                             步进电机控制
+    PC14-OSC32_IN                               32768Hz时钟输入
+    PC15-OSC32_OUT                              32768Hz时钟输出
+
+    PD0/FSMC_D2                                 FSMC数据总线D2
+    PD1/FSMC_D3                                 FSMC数据总线D3
+    PD2/STEPM4_EN                               步进电机控制
+    PD3/STEPM1_DIR                              步进电机控制
+    PD4/FSMC_NOE                                FSMC控制总线读信号（N表示低有效，OE = Output Enable）
+    PD5/FSMC_NWE/USART2_TXD                     FSMC控制总线写信号（N表示低有效，WE = Write Enable）/串口2发送，串口屏
+    PD6/USART2_RXD                              串口2接收，串口屏
+    PD7/STEPM1_EN                               步进电机控制
+    PD8/FSMC_D13                                FSMC数据总线D13
+    PD9/FSMC_D14                                FSMC数据总线D14
+    PD10/FSMC_D15                               FSMC数据总线D15
+    PD11/STEPM2_DIR                             步进电机控制
+    PD12/TIM4_CH1                               定时器功能引脚，霍尔传感器接口
+    PD13/TIM4_CH2                               定时器功能引脚，霍尔传感器接口
+    PD14/FSMC_D0                                FSMC数据总线D0
+    PD15/FSMC_D1                                FSMC数据总线D1
+
+    PE0/KEY1                                    按键
+    PE1/KEY2                                    按键
+    PE2/KEY3                                    按键
+    PE3/KEY4                                    按键
+    PE4/KEY5                                    按键
+    PE5/LED2/B&PM1_ENCZ                         led灯/无刷电机编码器Z相
+    PE6/LED3/B&PM2_ENCZ                         led灯/无刷电机编码器Z相
+    PE7/FSMC_D4                                 FSMC数据总线D4
+    PE8/FSMC_D5                                 FSMC数据总线D5
+    PE9/FSMC_D6                                 FSMC数据总线D6
+    PE10/FSMC_D7                                FSMC数据总线D7
+    PE11/FSMC_D8                                FSMC数据总线D8
+    PE12/FSMC_D9                                FSMC数据总线D9
+    PE13/FSMC_D10                               FSMC数据总线D10
+    PE14/FSMC_D11                               FSMC数据总线D11
+    PE15/FSMC_D12                               FSMC数据总线D12
+
+    PF0/FSMC_A0                                 FSMC地址总线A0，液晶屏
+    PF1/STEPM3_DIR                              步进电机控制
+    PF2/STEPM3_EN                               步进电机控制
+    PF3/ADC3_IN9                                ADC转换通道,foc控制
+    PF4/ADC3_IN14                               ADC转换通道,foc控制
+    PF5/ADC3_IN15                               ADC转换通道,foc控制
+    PF6/ADC3_IN4                                ADC转换通道,foc控制
+    PF7/ADC3_IN5                     	          ADC转换通道,foc控制
+    PF8/ADC3_IN6                                ADC转换通道,foc控制
+    PF9/ADC3_IN7                                ADC转换通道,foc控制
+    PF10/ADC3_IN8                               ADC转换通道,foc控制
+    PF11/STEPM2_EN                              步进电机控制
+    PF12/IO_OUTPUT1                             普通输出
+    PF13/IO_OUTPUT2                             普通输出
+    PF14/IO_OUTPUT3                             普通输出
+    PF15/IO_OUTPUT4                             普通输出
+    
+    PG0/IO_INPUT1                               普通输入
+    PG1/IO_INPUT2                               普通输入
+    PG2/IO_INPUT3                               普通输入
+    PG3/IO_INPUT4                               普通输入
+    PG4/IO_INPUT5                               普通输入
+    PG5/IO_INPUT6                               普通输入
+    PG6/IO_INPUT7                               普通输入
+    PG7/IO_INPUT8                               普通输入
+    PG8/IO_INPUT9                               普通输入
+    PG9/IO_INPUT10                              普通输入
+    PG10/IO_INPUT11                             普通输入
+    PG11/RMII_TXEN                              RMII接口
+    PG12/FSMC_NE4                               FSMC总线片选NE4
+    PG13/RMII_TXD0                              RMII接口  
+    PG14/RMII_TXD1                              RMII接口
+    PG15/IO_INPUT12                             普通输入
+    
+    PH0/OSC_IN                                  外部晶振时钟
+    PH1/OSC_OUT                                 外部晶振时钟
+    PH2/TP_SCK                                  触摸屏接口
+    PH3/TP_MOSI                                 触摸屏接口
+    PH4/TP_NIRQ                                 触摸屏接口
+    PH5/TP_MISO                                 触摸屏接口
+    PH6/B&PM1_SD                                无刷电机shutdown
+    PH7/I2C3_SCL                                I2C时钟线
+    PH8/I2C3_SDA                                I2C数据线
+    PH9/LED1/B&PM2_SD                           led灯/无刷电机shutdown
+    PH10/TIM5_CH1                               定时器功能引脚，霍尔传感器接口
+    PH11/TIM5_CH2                               定时器功能引脚，霍尔传感器接口
+    PH12/TIM5_CH3                               定时器功能引脚，霍尔传感器接口
+    PH13/TIM8_CH1N                              定时器功能引脚，电机控制
+    PH14/TIM8_CH2N                              定时器功能引脚，电机控制
+    PH15/TIM8_CH3N                              定时器功能引脚，电机控制
+    
+    PI0/SPI_NSS_2                               SPI接口，串行Flash读写
+    PI1/SPI2_SCK                                SPI接口，串行Flash读写
+    PI2/TIM8_CH4                                定时器功能引脚，电机控制
+    PI3/SPI2_MOSI                               SPI接口，串行Flash读写
+    PI4/TIM8_BKIN                               定时器功能引脚，电机控制4
+    PI5/TIM8_CH1                                定时器功能引脚，电机控制
+    PI6/TIM8_CH2                                定时器功能引脚，电机控制
+    PI7/TIM8_CH3                                定时器功能引脚，电机控制
+    PI8/TP_CS                                   触摸屏接口
+    PI9/CAN1_RX                                 CAN接口
+    PI10/BEEP                                   蜂鸣器
+    PI11/DHT11                                  温湿度传感器，DS18B20、DHT11、AM2302	

@@ -1,0 +1,14 @@
+.\build\msh_cmd.o: ..\..\components\finsh\msh_cmd.c
+.\build\msh_cmd.o: ..\..\include\rtthread.h
+.\build\msh_cmd.o: ..\..\include\rtdef.h
+.\build\msh_cmd.o: applications\rtconfig.h
+.\build\msh_cmd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\build\msh_cmd.o: ..\..\include\rtdebug.h
+.\build\msh_cmd.o: ..\..\include\rtservice.h
+.\build\msh_cmd.o: ..\..\include\rtm.h
+.\build\msh_cmd.o: ..\..\include\rtthread.h
+.\build\msh_cmd.o: ..\..\components\finsh\finsh.h
+.\build\msh_cmd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+.\build\msh_cmd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\build\msh_cmd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\build\msh_cmd.o: ..\..\components\finsh\msh.h

@@ -1,0 +1,10 @@
+.\build\irq.o: ..\..\src\irq.c
+.\build\irq.o: ..\..\include\rthw.h
+.\build\irq.o: ..\..\include\rtthread.h
+.\build\irq.o: ..\..\include\rtdef.h
+.\build\irq.o: applications\rtconfig.h
+.\build\irq.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\build\irq.o: ..\..\include\rtdebug.h
+.\build\irq.o: ..\..\include\rtservice.h
+.\build\irq.o: ..\..\include\rtm.h
+.\build\irq.o: ..\..\include\rtthread.h
