@@ -58,8 +58,14 @@ static inline void delay(unsigned int cnt)
  *************************************************************************************/
 int soft_spi_init(soft_spi *sspi)
 {
+	if (!sspi) {
+		return kIllgalArg;
+	}
+	
 	clk_high(sspi);
 	mosi_low(sspi);
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -79,6 +85,7 @@ int soft_spi_write(soft_spi *sspi, uint8_t *data, int len)
 	if (!sspi||!data||len<0){
 		return kIllgalArg;
 	}
+	
 	uint8_t mask;
 	for (int i = 0; i < len;i++) {//Öð×Ö½Ú
 		for (int j = 0, mask = 0x80; j < 8; j++) {//ÖðÎ»
@@ -95,7 +102,8 @@ int soft_spi_write(soft_spi *sspi, uint8_t *data, int len)
 		}
 	}
 	mosi_high(sspi);
-	return 0;
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -115,6 +123,7 @@ int soft_spi_read(soft_spi *sspi, uint8_t *data, int len)
 	if (!sspi || !data || len < 0) {
 		return kIllgalArg;
 	}
+	
 	mosi_high(sspi);
 	miso_high(sspi);
 	uint8_t read_byte = 0;
@@ -134,5 +143,6 @@ int soft_spi_read(soft_spi *sspi, uint8_t *data, int len)
 		data[i] = read_byte;
 		read_byte = 0;
 	}
-	return 0;
+	
+	return kOK;
 }
