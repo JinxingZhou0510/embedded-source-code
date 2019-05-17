@@ -119,7 +119,7 @@ int soft_iic_ack(soft_iic *siic);
 int soft_iic_nack(soft_iic *siic);	
 
 /*************************************************************************************
- * IIC发送一个字节
+ * IIC发送一个字节接收应答信号
  *
  * @author ZJX
  * @date 2019/5/6
@@ -130,6 +130,19 @@ int soft_iic_nack(soft_iic *siic);
  * @return An int.  kOK 表示从机应答了.
  *************************************************************************************/
 int soft_iic_send_byte(soft_iic *siic, uint8_t txd);
+
+/*************************************************************************************
+ * IIC发送一个字节不接收应答信号.
+ *
+ * @author ZJX
+ * @date 2019/5/6
+ *
+ * @param [in,out] siic The siic.
+ * @param 		   txd  Information describing the transmit.
+ *
+ * @return An int.  kOK 表示从机应答了.
+ *************************************************************************************/
+int soft_iic_send_byte_nack(soft_iic *siic, uint8_t txd);
 
 /*************************************************************************************
  * 读1个字节，ack=1时，发送ACK，ack=0，发送nACK

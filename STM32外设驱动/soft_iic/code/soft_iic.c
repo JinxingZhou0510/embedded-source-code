@@ -102,9 +102,12 @@ int soft_iic_init(soft_iic *siic)
 	if (!siic){
 		return kIllgalArg;
 	}
+	
 	iic_scl_h(siic);
 	iic_sda_h(siic);
 	sda_out(siic);
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -122,6 +125,7 @@ int soft_iic_start(soft_iic *siic)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	sda_out(siic);     //sda线输出
 	iic_sda_h(siic);
 	iic_scl_h(siic);
@@ -130,6 +134,8 @@ int soft_iic_start(soft_iic *siic)
 	delay(iic_t);
 	iic_scl_l(siic);//钳住I2C总线，准备发送或接收数据
 	delay(iic_t/2);
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -147,6 +153,7 @@ int soft_iic_stop(soft_iic *siic)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	sda_out(siic);//sda线输出
 	iic_scl_l(siic);
 	iic_sda_l(siic);
@@ -154,6 +161,8 @@ int soft_iic_stop(soft_iic *siic)
 	iic_scl_h(siic);//STOP:when CLK is high DATA change form low to high
 	delay(iic_t / 2);
 	iic_sda_h(siic);//发送I2C总线结束信号
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -171,6 +180,7 @@ int soft_iic_wait_ack(soft_iic *siic)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	int ucErrTime = 0;
 	sda_in(siic);      //SDA设置为输入
 	delay(iic_t);
@@ -186,6 +196,7 @@ int soft_iic_wait_ack(soft_iic *siic)
 	iic_scl_l(siic);//时钟输出0
 	delay(iic_t);
 	sda_out(siic); //SDA恢复为输出 
+	
 	return kOK;
 }
 
@@ -205,6 +216,7 @@ int soft_iic_send_byte(soft_iic *siic, uint8_t txd)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	uint8_t t;
 	for (t = 0; t < 8; t++) {
 		if ((txd & 0x80) >> 7) {
@@ -220,7 +232,44 @@ int soft_iic_send_byte(soft_iic *siic, uint8_t txd)
 		iic_scl_l(siic);
 		delay(iic_t/2);
 	}
+	
 	return soft_iic_wait_ack(siic);
+}
+
+/*************************************************************************************
+ * 软件IIC发送一字节数据不接收应答信号.
+ *
+ * @author ZJX
+ * @date 2019/5/6
+ *
+ * @param [in,out] siic 软件IIC句柄.
+ * @param 		   txd  待发送的数据.
+ *
+ * @return 参数错误返回kIllgalArg，否则返回应答信息.
+ *************************************************************************************/
+int soft_iic_send_byte_nack(soft_iic *siic, uint8_t txd)
+{
+	if (!siic) {
+		return kIllgalArg;
+	}
+	
+	uint8_t t;
+	for (t = 0; t < 8; t++) {
+		if ((txd & 0x80) >> 7) {
+			iic_sda_h(siic);
+		}
+		else {
+			iic_sda_l(siic);
+		}
+		txd <<= 1;
+		delay(iic_t/2);   
+		iic_scl_h(siic);
+		delay(iic_t);
+		iic_scl_l(siic);
+		delay(iic_t/2);
+	}
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -238,6 +287,7 @@ int soft_iic_ack(soft_iic *siic)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	iic_scl_l(siic);
 	sda_out(siic);
 	iic_sda_l(siic);
@@ -245,6 +295,8 @@ int soft_iic_ack(soft_iic *siic)
 	iic_scl_h(siic);
 	delay(iic_t);
 	iic_scl_l(siic);
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -262,6 +314,7 @@ int soft_iic_nack(soft_iic *siic)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	iic_scl_l(siic);
 	sda_out(siic);
 	iic_sda_h(siic);
@@ -269,6 +322,8 @@ int soft_iic_nack(soft_iic *siic)
 	iic_scl_h(siic);
 	delay(iic_t);
 	iic_scl_l(siic);
+	
+	return kOK;
 }
 
 /*************************************************************************************
@@ -287,6 +342,7 @@ uint8_t soft_iic_read_byte(soft_iic *siic, unsigned char ack)
 	if (!siic) {
 		return kIllgalArg;
 	}
+	
 	unsigned char receive = 0;
 	sda_in(siic);//SDA设置为输入
 	for (int i = 0; i < 8; i++) {
@@ -302,5 +358,6 @@ uint8_t soft_iic_read_byte(soft_iic *siic, unsigned char ack)
 		soft_iic_nack(siic);//发送nACK
 	else
 		soft_iic_ack(siic); //发送ACK   
+	
 	return receive;
 }
