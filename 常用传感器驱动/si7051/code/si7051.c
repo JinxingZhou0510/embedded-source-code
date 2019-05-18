@@ -251,7 +251,7 @@ static void si705x_write_user_register(si705x_typedef *si705x, uint8_t data)
 	if (kOK != soft_iic_send_byte(siic, CMD_WRITE_REGISTER)) {
         return kFailed;
     }
-	if (kIllgalArg == soft_iic_send_byte(siic, data)) {
+	if (kIllgalArg == soft_iic_send_byte_nack(siic, data)) {
         return kFailed;
     }
 	soft_iic_ack(iic);

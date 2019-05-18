@@ -29,10 +29,10 @@ extern "C" {
 
 /** Values that represent 705x precisions */
 typedef enum _si705x_precision {
-	one_percent = 11, // ÎÂ¶È¾«¶È0.01¶È
-	two_percent£¬     // ÎÂ¶È¾«¶È0.02¶È
-	four_percent£¬    // ÎÂ¶È¾«¶È0.04¶È
-	eight_percent     // ÎÂ¶È¾«¶È0.08¶È
+	one_percent = 11, // æ¸©åº¦ç²¾åº¦0.01åº¦
+	two_percentï¼Œ     // æ¸©åº¦ç²¾åº¦0.02åº¦
+	four_percentï¼Œ    // æ¸©åº¦ç²¾åº¦0.04åº¦
+	eight_percent     // æ¸©åº¦ç²¾åº¦0.08åº¦
 }si705x_precision;
 
 /**************************************************************************************************
