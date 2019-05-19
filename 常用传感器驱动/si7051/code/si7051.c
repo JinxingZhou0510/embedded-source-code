@@ -1,4 +1,7 @@
-#include "Si7051.h"
+#include "si7051.h"
+
+static uint8_t si705x_read_serial_number(si705x_typedef *si705x);
+static int si705x_set_resolution(si705x_typedef *si705x, uint8_t resolution);
 
 /**************************************************************************************************
  * 7051 initialize
@@ -23,12 +26,12 @@ int si705x_init(si705x_typedef *si705x, si705x_id serial_number, si705x_precisio
 	si705x->serial_number = serial_number;
 	si705x->precision = precision;
 	
-	uint8_t si705x_serial_number = si705x_read_serial_number();
+	uint8_t si705x_serial_number = si705x_read_serial_number(si705x);
 	if (si705x->serial_number != si705x_serial_number) {
-		return kFaild;
+		return kFailed;
 	}
-	if (kOK != si705x_set_resolution(si705x->precision)) {
-		return kFaild;
+	if (kOK != si705x_set_resolution(si705x, si705x->precision)) {
+		return kFailed;
 	}
 	
 	return kOK;
@@ -169,7 +172,9 @@ static uint8_t si705x_read_serial_number(si705x_typedef *si705x)
         return kIllgalArg;
     }
 
-    if (kOK != _si705x_read_serial_number(si705x, CMD_READ_ID_1ST_LSB, CMD_READ_ID_1ST_HSB)) {
+	 soft_iic *siic = si705x->siic;
+   soft_iic_start(siic);
+	if (kOK != _si705x_read_serial_number(si705x, CMD_READ_ID_1ST_LSB, CMD_READ_ID_1ST_HSB)) {
 		return kFailed;
 	}
 	uint8_t sna   = soft_iic_read_byte(siic, ACK);  // SNA_3
@@ -237,7 +242,7 @@ static uint8_t si705x_read_user_register(si705x_typedef *si705x)
  *
  * @param data The data.
  *************************************************************************************************/
-static void si705x_write_user_register(si705x_typedef *si705x, uint8_t data)
+static int si705x_write_user_register(si705x_typedef *si705x, uint8_t data)
 {
 	if (!si705x) {
         return kIllgalArg;
@@ -254,7 +259,7 @@ static void si705x_write_user_register(si705x_typedef *si705x, uint8_t data)
 	if (kIllgalArg == soft_iic_send_byte_nack(siic, data)) {
         return kFailed;
     }
-	soft_iic_ack(iic);
+	soft_iic_ack(siic);
 	soft_iic_stop(siic);
 
 	return kOK;
@@ -332,7 +337,7 @@ static int si705x_set_resolution(si705x_typedef *si705x, uint8_t resolution)
 	
 	si705x_write_user_register(si705x, reg.rawData);
 
-	reg_read_data = si705x_read_user_register(si705x);
+	reg_read_data.rawData = si705x_read_user_register(si705x);
 
 	if ((reg.resolution0 == reg_read_data.resolution0) && 
 			(reg.resolution7 == reg_read_data.resolution7)) {
